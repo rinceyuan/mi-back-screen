@@ -26,10 +26,28 @@ class RearDisplayPickTest {
     }
 
     @Test
+    fun the17ProBackScreenInEitherOrientationOverAnExternalDisplay() {
+        val proMain = DisplayCandidate(0, 1220, 2656)
+        for ((width, height) in listOf(904 to 572, 572 to 904)) {
+            val proRear = DisplayCandidate(1, width, height)
+            assertEquals(1, RearDisplayPick.choose(listOf(cast, overlay, proMain, proRear), rememberedId = null))
+            assertEquals(1, RearDisplayPick.choose(listOf(cast, proMain, proRear), rememberedId = cast.id))
+        }
+    }
+
+    @Test
+    fun theTwoModelsDimensionsCannotBeMixed() {
+        val mixed = listOf(DisplayCandidate(1, 976, 572), DisplayCandidate(2, 904, 596))
+        assertNull(RearDisplayPick.choose(listOf(main) + mixed, rememberedId = null))
+    }
+
+    @Test
     fun anAppsPrivateDisplayIsNeverIt() {
-        val private = DisplayCandidate(7, 976, 596, isPrivate = true)
-        assertNull(RearDisplayPick.choose(listOf(main, private), rememberedId = null))
-        assertEquals(1, RearDisplayPick.choose(listOf(main, private, rear), rememberedId = null))
+        for ((width, height) in listOf(976 to 596, 904 to 572)) {
+            val private = DisplayCandidate(7, width, height, isPrivate = true)
+            assertNull(RearDisplayPick.choose(listOf(main, private), rememberedId = null))
+            assertEquals(1, RearDisplayPick.choose(listOf(main, private, rear), rememberedId = null))
+        }
     }
 
     @Test
@@ -48,6 +66,8 @@ class RearDisplayPickTest {
 
     @Test
     fun theMainScreenIsNeverIt() {
-        assertNull(RearDisplayPick.choose(listOf(DisplayCandidate(0, 976, 596)), rememberedId = 0))
+        for ((width, height) in listOf(976 to 596, 904 to 572)) {
+            assertNull(RearDisplayPick.choose(listOf(DisplayCandidate(0, width, height)), rememberedId = 0))
+        }
     }
 }

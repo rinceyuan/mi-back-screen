@@ -1,9 +1,9 @@
 # Mi Back Screen
 
-Your own images, animated GIFs, a clock and your notifications on the **Xiaomi 17 Pro Max** rear display. It can also move the app you're using to the back screen with one tap, and opens Xiaomi Camera there with a swipe.
+Your own images, animated GIFs, a clock and your notifications on the **Xiaomi 17 Pro / 17 Pro Max** rear display. It can also move the app you're using to the back screen with one tap, and opens Xiaomi Camera there with a swipe.
 
-**Website:** https://totallynotkasai.github.io/mi-back-screen/
-**Download:** [latest APK](https://github.com/totallynotkasai/mi-back-screen/releases/latest/download/MiBackScreen.apk)
+**Website:** [Project page](docs/index.html)
+**Install:** [Build and install the APK](#building)
 
 <p align="center">
   <img src="docs/screenshots/back-wallpaper.png" width="32%" alt="The back screen: your wallpaper with the clock">
@@ -41,8 +41,11 @@ No internet permission, no storage permission.
 
 ## Requirements
 
-- Xiaomi 17 Pro Max on HyperOS 3 (Android 16)
+- Xiaomi 17 Pro (904 x 572 rear display) or Xiaomi 17 Pro Max (976 x 596 rear display)
+- Xiaomi HyperOS with Android 15 or newer
 - [Shizuku](https://shizuku.rikka.app/), running and authorised for Mi Back Screen
+
+Both models' rear displays are detected in landscape and portrait. External and private displays are excluded.
 
 ## Setup
 
@@ -90,6 +93,15 @@ Requires JDK 21 (Robolectric needs it for the Android 16 tests) and the Android 
 ./gradlew testDebugUnitTest    # unit tests
 ./gradlew assembleRelease      # app/build/outputs/apk/release/
 ```
+
+Clone [the repository](https://github.com/rinceyuan/mi-back-screen). The same APK supports both the 17 Pro and 17 Pro Max. On Windows, build and install over ADB with:
+
+```powershell
+.\gradlew.bat assembleDebug
+adb -s YOUR_DEVICE_SERIAL install -r .\app\build\outputs\apk\debug\app-debug.apk
+```
+
+Find the serial with `adb devices`. Start Shizuku, then open Mi Back Screen and approve its Shizuku access as described in [Setup](#setup). A locally signed debug APK cannot update an APK signed with a different key in place.
 
 A release build is signed using four settings, `MBS_STORE_FILE`, `MBS_STORE_PASSWORD`, `MBS_KEY_ALIAS` and `MBS_KEY_PASSWORD`, taken from environment variables or from `local.properties` (which isn't committed). Without them, `assembleRelease` makes an unsigned APK. Published releases are all signed with the same key, so each one installs over the last and keeps your settings. Every push runs the tests, lint and an unsigned release build on GitHub Actions.
 
