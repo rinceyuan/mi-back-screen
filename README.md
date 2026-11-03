@@ -49,8 +49,8 @@ Both models' rear displays are detected in landscape and portrait. External and 
 
 ## Setup
 
-1. Install and start Shizuku (wireless debugging or ADB).
-2. Install the APK, open Mi Back Screen and tap **Allow access**. Until Shizuku is ready, a banner says what's missing, with **Get Shizuku** or **Open Shizuku**. If you refused once and Shizuku won't ask again, switch Mi Back Screen on in Shizuku's **Authorized apps**.
+1. Install and start Shizuku (wireless debugging or ADB). On Xiaomi, also enable **USB debugging (Security settings)** in Developer options; ordinary **USB debugging** alone leaves some ADB permissions restricted. See [Shizuku's setup guide](https://shizuku.rikka.app/guide/setup/).
+2. Install the APK, open Mi Back Screen and tap **Allow access**. **Starting Shizuku alone does not authorise Mi Back Screen.** Until Shizuku is ready, a banner says what's missing, with **Get Shizuku** or **Open Shizuku**. If you refused once and Shizuku won't ask again, switch Mi Back Screen on in Shizuku's **Authorized apps**.
 3. Pick images (or a folder) and turn on **Show on back screen**.
 4. If the app shows **Setup needed**, allow alarms, and in Settings → Apps → Mi Back Screen turn on **Autostart** and set **Battery saver** to **No restrictions**.
 5. Turn on what you want on the other tabs. Shizuku grants Notification access in the same tap; without it, Android blocks that for sideloaded apps until you open App info → ⋮ → **Allow restricted settings**. For Quick Switch, also add its tile to Quick Settings.
